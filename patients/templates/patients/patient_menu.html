@@ -1,0 +1,279 @@
+{% extends 'patients/base.html' %}
+{% load staticfiles %}
+
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %} <script src="{% static '/patients/js/visits-dropdown.js' %}"></script> {% endblock %}
+{% block content %}
+	{% if messages %}
+		{% for message in messages %}
+			<div id="message_container" {% if message.tags %} class="{{message.tags}}" {% endif %}>
+				{{message}}
+			</div>
+		{% endfor %}
+	{% endif %}
+    <!-- Patient-info Grid -->
+    <section class="bg-light" id="first-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Πληροφορίες ασθενούς</h2>
+            <h3 class="section-subheading text-muted">Ασθενής {{ patient_code }}</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+
+			<a class="portfolio-link" href={% url 'pregistration' patient_id%}>
+            	<i class="fas fa-id-card fa-10x"></i>
+
+            </a>
+			
+            <div class="portfolio-caption">
+              <h4>Δεδομένα Εγγραφής</h4>
+              <p class="text-muted">Αρχικά δεδομένα εγγραφής του ασθενούς</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link" href={% url 'pdemographics' patient_id %}>
+				<i class="fas fa-users fa-10x"></i>
+
+            </a>
+            <div class="portfolio-caption">
+              <h4>Δημογραφικά Στοιχεία Ασθενούς</h4>
+              <p class="text-muted">Δημογραφικά χαρακτηριστικά του ασθενούς</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+    
+    <!-- Visits Grid -->
+    <section id="second-section">
+    {% if not icu_switch %}
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Πληροφορίες επιλεγμένης καταγραφής</h2>
+            <h3 class="section-subheading text-muted">
+	            {% if cur_visit_date %}
+					{{ cur_visit_date }}
+				{% else %}
+					Νέα Καταγραφή
+				{% endif %}
+            </h3>
+          </div>
+        </div>
+        
+
+		<button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseVisits" aria-expanded="false" aria-controls="collapseVisits">
+			Επεξεργασία/Προσθήκη Καταγραφής
+		</button>
+		<br>
+		<br>
+		<br>
+		<div class="collapse" id="collapseVisits">
+		  <div class="card card-body">
+		  	<div class="row">
+		  		<h6>Επιλογή καταγραφής: </h6>
+				<div class="dropdown ml-sm-1 ml-md-2">
+		    		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownVisitMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    			{% if fmted_visits %}
+		    				{% if fmted_visits.0 == "Νέα Καταγραφή" %}
+		    					----------
+		    				{% else %}
+						    	{{cur_visit_date}}
+						    {% endif %}
+					    {% endif %}
+					</button>
+					<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+						{% for visit in fmted_visits %}
+							{% if visit == "Νέα Καταγραφή" %}
+                            <div class="dropdown-item sticky-bottom">
+								<button id="newVisitBtn" class="dropdown-item dropdown-toggle" data-toggle="collapse" data-target="#visitDateBox">{{visit}}
+                                <i class="fa fa-plus-circle"></i>
+                                </button>
+                            </div>
+							{% else %}
+								<a class="dropdown-item" href="#">{{visit}}</a>
+							{% endif %}
+							
+						{% endfor %}
+					</div>
+				</div>	
+		  	</div>
+		  	
+		  	<form action="" method="post" class="collapse sma-form col-sm-4" id=visitDateBox novalidate>
+    			{% csrf_token %}
+    			{{ vform.visit_date.errors }}
+    			{{ vform.visit_date }}
+		  		<input type="submit" value="ΟΚ">
+		  	</form>
+		  </div>
+		</div>
+
+        <br>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline {{ first_visit_switch }}" href={% url 'pstate' pat_visit_id %}>
+            	<i class="fas fa-file-medical-alt fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>Έκβαση Ασθενούς</h4>
+              <p class="text-muted">Έκβαση της υγείας του ασθενούς και σχετική νοσηλεία</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline" href={% url 'pcharacteristics' pat_visit_id %}>
+				<i class="fas fa-clipboard-list fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>Χαρακτηριστικά Ασθενούς</h4>
+              <p class="text-muted">Γενικά χαρακτηριστικά ασθενούς, πάθηση, σύνοδα νοσήματα και γενικές πληροφορίες </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline {{ ventilation_switch }}" href={% url 'pventilation' pat_visit_id %}>
+				<i class="fas fa-digital-tachograph fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>Μηχανικός Αερισμός</h4>
+              <p class="text-muted">Πληροφορίες σχετικά με τον μηχανικό αερισμό</p>
+            </div>
+          </div>
+          
+          
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link" href={% url 'pbtests' pat_visit_id %}>
+            	<i class="fas fa-notes-medical fa-10x"></i>
+
+            </a>
+            <div class="portfolio-caption">
+              <h4>Αναπνευστική Λειτουργία</h4>
+              <p class="text-muted">Δείκτες αναπνευστικής λειτουργίας και εξετάσεων ύπνου</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline {{ device_switch }}" href={% url 'pdevtesting' pat_visit_id %}>
+            	<i class="fab fa-whmcs fa-10x"></i>
+
+            </a>
+            <div class="portfolio-caption">
+              <h4>Στοιχεία Συσκευής</h4>
+              <p class="text-muted">Στοιχεία τεχνικού ελέγχου συσκευής</p>
+            </div>
+          </div>
+          
+          
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline {{ help_at_home_switch }}" href={% url 'phelpathome' pat_visit_id %}>
+				<i class="fas fa-hands fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>Φροντίδα - Βοήθεια στο Σπίτι</h4>
+              <p class="text-muted">Πληροφορίες αναφορικά με το πρόγραμμα και το περιβάλλον του ασθενούς</p>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+      </div>
+      
+      {% else %}
+      <div class="container ">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Πληροφορίες επιλεγμένης καταγραφής</h2>
+            <h3 class="section-subheading text-muted">
+	            {% if cur_visit_date %}
+					{{ cur_visit_date }}
+				{% else %}
+					Νέα Καταγραφή
+				{% endif %}
+            </h3>
+          </div>
+        </div>
+        
+
+		<button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseVisits" aria-expanded="false" aria-controls="collapseVisits">
+			Επεξεργασία/Προσθήκη Καταγραφής
+		</button>
+		<br>
+		<br>
+		<br>
+		<div class="collapse" id="collapseVisits">
+		  <div class="card card-body">
+		  	<div class="row">
+		  		<h6>Επιλογή καταγραφής: </h6>
+				<div class="dropdown ml-sm-1 ml-md-2">
+		    		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownVisitMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    			{% if fmted_visits %}
+		    				{% if fmted_visits.0 == "Νέα Καταγραφή" %}
+		    					----------
+		    				{% else %}
+						    	{{cur_visit_date}}
+						    {% endif %}
+					    {% endif %}
+					</button>
+					<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+						{% for visit in fmted_visits %}
+							{% if visit == "Νέα Καταγραφή" %}
+                            <div class="dropdown-item sticky-bottom">
+                                <button id="newVisitBtn" class="dropdown-toggle" data-toggle="collapse" data-target="#visitDateBox">{{visit}}
+                                    <i class="fa fa-plus-circle"></i>
+                                </button>
+                            </div>
+
+							{% else %}
+								<a class="dropdown-item" href="#">{{visit}}</a>
+							{% endif %}
+							
+						{% endfor %}
+					</div>
+				</div>	
+		  	</div>
+		  	
+		  	<form action="" method="post" class="collapse sma-form col-sm-4" id=visitDateBox novalidate>
+    			{% csrf_token %}
+    			{{ vform.visit_date.errors }}
+    			{{ vform.visit_date }}
+		  		<input type="submit" value="ΟΚ">
+		  	</form>
+		  </div>
+		</div>
+
+        <br>
+        <div class="row">
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline" href={% url 'pstate' pat_visit_id %}>
+            	<i class="fas fa-file-medical-alt fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>Έκβαση Ασθενούς</h4>
+              <p class="text-muted">Έκβαση της υγείας του ασθενούς και σχετική νοσηλεία</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 portfolio-item" align="center">
+            <a class="portfolio-link btn no-outline" href={% url 'picu' pat_visit_id %}>
+              <i class="fas fa-procedures fa-10x"></i>
+            </a>
+            <div class="portfolio-caption">
+              <h4>ΜΕΘ</h4>
+              <p class="text-muted">Μονάδα Εντατικής Θεραπείας </p>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      {% endif %}
+    </section>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'centers/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} Στοιχεία Κέντρου {% endblock %}
+
+{% block content %}
+	<form action="" method="post" class="ma-form col-sm-4 offset-sm-4" id="first-section" autocomplete="off" novalidate>
+		{% csrf_token %}  
+		{% if messages %}
+			{% for message in messages %}
+				<div id="message_container" {% if message.tags %} class="{{message.tags}}" {% endif %}>
+					{{message}}
+				</div>
+			{% endfor %}
+		{% endif %}
+		                
+		{{ form|crispy }}
+
+		<br>
+		<div class="row">
+			<button class="btn btn-primary col-4" type="submit">
+			<i class="fas fa-save"></i>
+			<span class="d-none d-xl-block">
+				Αποθήκευση
+			</span>
+		    </button>
+		    <span class="col-4"></span>
+		    
+		<a class="btn btn-primary col-4" data-dismiss="modal" type="button" href="{{ request.META.HTTP_REFERER }}">
+	    	<i class="fas fa-backspace"></i>
+	    	<span class="d-none d-xl-block">
+	    		Επιστροφή
+	    	</span>
+	    	</a> 
+    	</div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'patients/form_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block formcontent %}
+<h1>Δεδομένα Εγγραφής</h1>
+{{ rform|crispy }}                
+	
+{% endblock %}

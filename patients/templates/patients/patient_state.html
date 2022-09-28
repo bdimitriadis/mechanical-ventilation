@@ -1,0 +1,14 @@
+{% extends 'patients/form_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}
+<script src="{% static 'patients/js/conditional-death-field.js' %}"></script>
+<script src="{% static 'patients/js/hospitalizations.js' %}"></script>
+{% endblock %}
+
+{% block formcontent %}
+	<h1> Έκβαση Ασθενούς</h1>
+	{{ psform|crispy }}
+{% endblock %}

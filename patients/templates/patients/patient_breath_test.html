@@ -1,0 +1,49 @@
+{% extends 'patients/form_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load custom_tags %}
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}
+<script src="{% static 'patients/js/conditional-sleep-tests.js' %}"></script>
+<script src="{% static 'patients/js/conditional-clinical-symptoms.js' %}"></script>
+{% endblock %}
+
+{% block formcontent %}
+
+		<h1>  Αναπνευστική Λειτουργία και Ύπνος</h1>
+		<br>
+		
+		{% for section,subs in  bstform.sections_fields %}
+		<div class="section-dis mt-3">
+			<h2>{{ section }}</h2>
+			
+			<div class="subsection-dis my-2">
+			{% for sub in subs %}
+				<div class="my-4">
+				{% if sub.0 %} <h4>{{ sub.0 }}</h4> {% endif %}
+					{% for field in sub.1 %}
+						{% if field.name == 'clinical_symptoms' %}
+							<!--<label>Έχει κλινικά συμπτώματα: *</label>-->
+							<div class="{%if bstform.has_symptoms.errors %}border-error{% endif %}">{{ bstform.has_symptoms|as_crispy_field }}</div>
+								{% for error in bstform.has_symptoms.errors %}
+									<p id="error_1_{{bstform.has_symptoms.id_for_label}}" class="field-error"><strong>{{ error }}</strong></p>
+								{% endfor %}
+						{% endif %}
+						{% if field|field_type == 'RadioSelect' or field|field_type == 'CheckboxSelectMultiple' %}
+							<div class="{%if field.errors %}border-error{% endif %}">{{ field|as_crispy_field }}</div>
+								{% for error in field.errors %}
+									<p id="error_1_{{field.id_for_label}}" class="field-error"><strong>{{ error }}</strong></p>
+								{% endfor %}
+							{% else %}
+								{{ field|as_crispy_field }}
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+		<br>
+		{% endfor %}
+{% endblock %}

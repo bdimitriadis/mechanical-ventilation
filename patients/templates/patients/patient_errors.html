@@ -1,0 +1,11 @@
+{% extends 'patients/base.html' %}
+{% load staticfiles %}
+
+{% block title %} {{window_title}} {% endblock %}
+{% block headext %}
+	<script src="{% static 'patients/js/no-more-button.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+	<div class="exceptions-errors"><h1>{{ exception }}</h1></div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} Σελίδα Εισαγωγής {% endblock %}
+
+{% block content %}
+
+<!--{% if form.errors %}-->
+	<!--<p id="message_container" class="error">Λάθος όνομα χρήστη ή λάθος κωδικός. Παρακαλώ δοκιμάστε ξανά.</p>-->
+<!--{% endif %}-->
+
+{% if next %}
+	{% if user.is_authenticated %}
+	    <p id="message_container" class="error">Ο λογαριασμός σας δεν έχει δικαίωμα πρόσβασης σε αυτήν τη σελίδα. Για να συνεχίσετε,
+	    παρακαλώ κάντε εισαγωγή στο σύστημα με ένα εγκεκριμένο λογαριασμό.
+	    </p>
+	{% else %}
+    	<p id="message_container" class="error">Παρακαλώ κάντε εισαγωγή στο σύστημα για να δείτε αυτήν τη σελίδα.</p>
+  	{% endif %}
+{% endif %}
+
+<form class="ma-form col-sm-4 offset-sm-4" method="post" action="{% url 'login' %}" autocomplete="off" novalidate>
+	{% csrf_token %}
+	{{ form|crispy }}
+
+			<button class="btn btn-primary mt-2" type="submit">
+	    	<i class="fas fa-sign-in-alt"></i>
+	    		Είσοδος
+			</button>
+
+			{# Assumes you setup the password_reset view in your URLconf #}
+			<p><a href="{% url 'password_reset' %}">Ξεχάσατε τον κωδικό σας? </a></p>
+
+	<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+
+{% endblock %}

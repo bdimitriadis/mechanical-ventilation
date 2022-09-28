@@ -1,0 +1,1 @@
+[{"model": "patients.tracheostomytype", "pk": 1, "fields": {"tracheostomy_type": "CUFF"}}, {"model": "patients.tracheostomytype", "pk": 2, "fields": {"tracheostomy_type": "CUFFLESS"}}]

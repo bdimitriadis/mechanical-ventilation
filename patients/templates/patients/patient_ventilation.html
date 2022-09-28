@@ -1,0 +1,36 @@
+{% extends 'patients/form_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load custom_tags %}
+
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}
+<script src="{% static 'patients/js/conditional-home-use.js' %}"></script>
+<script src="{% static 'patients/js/conditional-invasive.js' %}"></script>
+{% endblock %}
+
+{% block formcontent %}		
+	<h1> Μηχανικός Αερισμός</h1>
+	
+	{% for section,fields in pcform.sections_fields %}
+	<div class="section-dis">
+		<h2>{{ section }}</h2>
+		{% for field in fields %}
+			{% if field|field_type == 'RadioSelect' or field|field_type == 'CheckboxSelectMultiple' %}
+				
+				<div class="{%if field.errors %}border-error{% endif %}">{{ field|as_crispy_field }}</div>
+				{% for error in field.errors %}
+					<p id="error_1_{{field.id_for_label}}" class="field-error"><strong>{{ error }}</strong></p>
+				{% endfor %}
+			{% else %}
+				{{ field|as_crispy_field }}
+			{% endif %}
+	
+		{% endfor %}
+	</div>
+	<br>
+	{% endfor %}
+{% endblock %}
+

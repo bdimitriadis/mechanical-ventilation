@@ -1,0 +1,118 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %} {{ title }} {% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/agency.min.css" %}" rel="stylesheet">
+<!--     <link href="{% static 'css/agency.css' %}" rel="stylesheet"> -->
+    <link href="{% static 'centers/css/centers.css' %}" rel="stylesheet">
+    
+
+	<!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>
+    <script src="{% static 'js/contact_me.js' %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'js/agency.min.js' %}"></script>
+
+
+    <link href="{% static 'vendor/bootstrap-datepicker-1.6.4-dist/css/bootstrap-datepicker.standalone.min.css' %}" rel="stylesheet">
+    <script src="{% static 'vendor/bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap-datepicker-1.6.4-dist/locales/bootstrap-datepicker.el.min.js' %}"></script>
+
+    <script>$(document).ready(function() {
+        $('.has-popover').popover({'trigger':'hover'});
+    });</script>
+    <script src="{% static 'js/messages.js' %}"></script>
+
+	<!--  Extending head section -->
+    {% block headext %}{% endblock %}
+  </head>
+
+  <body id="page-top">
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-heading col-sm-10 offset-sm-1 mt-4">{{title}}</div>
+          <div class="intro-lead-in">{{subtitle}}</div>
+          <a id="more-btn" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#first-section">Περισσοτερα</a>
+        </div>
+      </div>
+    </header>
+    
+    {% block content %}
+	{% endblock %}
+
+    <!-- Clients -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+<!--           <div class="col-md-6 col-sm-6"> -->
+<!--             <a href="#"> -->
+<!--               <img class="img-fluid d-block mx-auto" src="{% static "img/logos/Certh-logo.png" %}" alt=""> -->
+<!--             </a> -->
+<!--           </div> -->
+          <div class="col-sm-4 col-xs-6 offset-sm-4">
+            <a href="#">
+              <img class="img-fluid d-block mx-auto" src="{% static "img/logos/INAB-logo.png" %}" alt="">
+            </a>
+          </div>
+<!--           <div class="col-md-3 col-sm-6"> -->
+<!--             <a href="#"> -->
+<!--               <img class="img-fluid d-block mx-auto" src="{% static "img/logos/themeforest.jpg" %}" alt=""> -->
+<!--             </a> -->
+<!--           </div> -->
+<!--           <div class="col-md-3 col-sm-6"> -->
+<!--             <a href="#"> -->
+<!--               <img class="img-fluid d-block mx-auto" src="{% static "img/logos/creative-market.jpg" %}" alt=""> -->
+<!--             </a> -->
+<!--           </div> -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-xs-6 offset-sm-4 col-md-12 offset-md-0">
+            <span class="copyright">Copyright &copy; ΕΚΕΤΑ/ΙΝΕΒ 2018</span>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+    
+  </body>
+
+</html>

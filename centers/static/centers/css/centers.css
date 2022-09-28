@@ -1,0 +1,203 @@
+/* Extras */
+.ma-form {
+	position: relative;
+	top: 5em !important;
+	margin-bottom: 8em !important;
+}
+
+.sma-form {
+	position: relative;
+	margin-top: 1em !important;
+	margin-bottom: 1em !important;
+}
+
+/* form { */
+/* 	padding: 1em 50px 1em 50px; */
+/* 	border: 2px solid; */
+/*     border-radius: 10px; */
+/* } */
+
+
+p~ul.list-inline {
+	position: relative;
+/* 	top: -3em; */
+	margin-top: -1em;
+	margin-bottom: 1em;
+	left: 30%;
+/* 	margin-bottom: -3em; */
+}
+
+label+textarea {
+	display: inline-block;
+/* 	text-align:right; */
+	vertical-align: top;
+}
+
+.errorlist {
+	color: red;
+	font-weight: bold;
+}
+
+.intro-heading {
+	color: white;
+}
+
+header.masthead {
+	text-shadow:0px 3px 5px rgba(0,0,0,1);
+}
+
+
+@media (min-width: 768px) {
+	header.masthead {
+		height: 50vh;
+	}
+
+	header.masthead .intro-text {
+		padding-top: 150px;   // 300
+		padding-bottom: 100px;  // 200
+	}
+	header.masthead .intro-text .intro-lead-in {
+		font-size: 25px; //40px;
+		font-style: italic;
+		line-height: 25px;  //40px;
+		margin-bottom: 25px;
+		font-family: 'Droid Serif', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	}
+	header.masthead .intro-text .intro-heading {
+		font-size: 50px; // 75px;
+		font-weight: 700;
+		line-height: 50px;  // 75px;
+		margin-bottom: 35px; //50px;
+		font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	}
+}
+
+
+.btn-primary {
+  background-color: #345c63;
+  border-color: #345c63;
+/*   4cb2cc */
+/*   #1d88bb;  */
+/* #396855; */
+/* #345c63; */
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+  background-color: #4cb2cc !important;
+  border-color: #4cb2cc !important;
+  color: white;
+}
+
+a {
+	color: #345c63;
+}
+
+a:hover {
+  color: #4cb2cc;
+}
+
+.list-inline li {
+	display: inline;
+	padding-right: 1.5em;
+	
+}
+
+ul {
+	list-style: none;
+}
+
+#message_container.success,  #message_container.error{
+	font-weight: bold;
+	font-size: large;
+	text-align: center;
+	margin-bottom: 3em;
+}
+
+#message_container.success {
+	color: green;	
+}
+
+#message_container.error {
+	color: red;
+}
+ 
+.no-outline:focus {
+	outline: none !important;
+	box-shadow: none;
+}
+
+.ma-form h1 {
+	text-align: center;
+	margin-top: -0.5em;
+	margin-bottom: 0.5em;
+}
+
+.section {
+	align: center;
+}
+
+p~ul {
+	position: relative;
+	margin-top: -0.5em;
+	margin-bottom: 0.5em;
+	left: 30%;
+}
+
+.section-dis h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.section-errors {
+	text-align: center;
+	margin-top: 3em;
+}
+
+.exceptions-errors {
+	color: #345c63;
+	text-align: center;
+	margin-top: 5em;
+	margin-bottom: 5em;
+}
+
+.login-form {
+	width: 35em;
+	position: relative;
+	margin: 2em auto;
+}
+
+.login-btn {
+	margin-top: 0.2em
+}
+
+.logged-out {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	text-align: center;
+}
+
+.reset-p {
+	text-align: center;
+}
+
+.reset-div {
+	position: relative;
+	font-weight: bold;
+	color: #345c63;
+	margin: 2em auto;
+	text-align: center;
+}
+
+.reset-pwd-form {
+	position: relative;
+	margin: 2em auto;
+	text-align: center;
+}
+
+#menu {
+	position: fixed;
+	right: 0;
+	top: 50%;
+	width: 8em;
+	margin-top: -2.5em;
+}

@@ -1,0 +1,33 @@
+{% extends 'patients/form_base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}
+	<script src="{% static 'patients/js/conditional-mask-device.js' %}"></script>
+	<script src="{% static 'patients/js/conditional-technical-check.js' %}"></script>
+	<script type="text/javascript">
+	$(function() {
+		// var days_passed = "{{ days_since_prev_visit }}";
+		calc_daily_usage();
+		$('[name="usage_hours"]').change(calc_daily_usage);
+	});
+
+	function calc_daily_usage(){
+			var days_passed = {{ days_since_prev_visit }};
+			var prev_usage_hours = {{ prev_usage_hours }};
+
+			$('[name="daily_usage_hours"]').val(function () {
+				var res = (($('[name="usage_hours"]').val() - prev_usage_hours) / days_passed).toFixed(1);
+				return res;
+			});
+	}
+	</script> 
+{% endblock %}
+
+{% block formcontent %}
+	<h1> Στοιχεία Συσκευής</h1>
+	<br>
+	
+	{{ dtiform|crispy }}
+{% endblock %}

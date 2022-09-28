@@ -1,0 +1,67 @@
+{% extends 'patients/base.html' %}
+{% load staticfiles %}
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}{% endblock %}
+
+{% block content %}
+	<div class="accordion my-4 col-sm-4 col-xs-12 offset-sm-4" id="accordionSearchAdd">
+	  <div class="card">
+	    <div class="card-header" id="headingOne">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+	          Αναζήτηση ασθενούς
+	        </button>
+	      </h5>
+	    </div>
+	
+	    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionSearchAdd">
+	    	<form action="" method="post" class="card-body" novalidate>
+		      	{% csrf_token %}
+		      	{% for field in sform %}
+			      	{{ field.errors }}
+			      	{{ field.label }}
+			      	<div class="input-group">
+	  					{{ field }}
+	  					<div class="input-group-append">
+	    					<button class="btn btn-primary" type="submit">
+	    						<i class="fas fa-search"></i>
+	    					</button>
+	  					</div>
+					</div>
+				{% endfor %}
+		      </form>
+	    </div>
+	  </div>
+	  <div class="card">
+	    <div class="card-header" id="headingTwo">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+	          Προσθήκη νέου ασθενούς
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSearchAdd">
+	        <form action="" method="post" class="card-body" novalidate>
+	      	{% csrf_token %}
+	      	{% for field in aform %}
+		      	{{ field.errors }}
+		      	{{ field.label }}
+		      	<div class="input-group">
+		      		
+		      		{{ field }}
+    
+  					
+  					<div class="input-group-append">
+			      		<button class="btn btn-primary" type="submit">
+						<i class="fas fa-plus"></i>
+					    </button>
+			    	</div>
+				</div>
+			{% endfor %}
+	      </form>
+	    </div>
+	  </div>
+	</div>
+
+{% endblock %}

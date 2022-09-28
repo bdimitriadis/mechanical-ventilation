@@ -1,0 +1,1 @@
+[{"model": "patients.ventilationtype", "pk": 1, "fields": {"ventilation_type": "\u0395\u03a0\u0395\u039c\u0392\u0391\u03a4\u0399\u039a\u039f\u03a3"}}, {"model": "patients.ventilationtype", "pk": 2, "fields": {"ventilation_type": "\u039c\u0397 \u0395\u03a0\u0395\u039c\u0392\u0391\u03a4\u0399\u039a\u039f\u03a3"}}]

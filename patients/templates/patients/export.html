@@ -1,0 +1,60 @@
+{% extends 'patients/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+{% load custom_tags %}
+
+{% block title %} {{title}} {% endblock %}
+{% block headext %}
+<script src="{% static 'patients/js/exports-adjust.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+	<form action="" method="post" class="card-body" novalidate>
+		{% csrf_token %}
+	
+		{% for field in esform %}
+		<div class="accordion my-4 col-sm-4 offset-sm-4" id="accordion-{{ field.name }}">
+		  <div class="card">
+		    <div class="card-header" id="heading-{{ field.name }}">
+		      <h5 class="mb-0 row">
+		      	<input type="checkbox" name="{{field.name}}-check">
+		        <button class="btn btn-link accordion-toggle" type="button" data-toggle="collapse" data-target="#collapse-{{ field.name }}" aria-expanded="true" aria-controls="collapseOne">
+		        	{{field.label|title}}
+					{% if field.name != 'export_centers' %}<i class="fas fa-angle-down"></i>{% endif %}
+		        </button>
+		      </h5>
+		    </div>
+		
+		    <div id="collapse-{% if field.name == 'export_centers' %}centers{% else %}{{ field.name }}{% endif %}" class="collapse with-bottom-border {% if field.name == 'export_centers' %}show{% else %}hide{% endif %}" aria-labelledby="headingOne" data-parent="#accordion-{{ field.name }}">
+		    	{% if field|field_type == 'RadioSelect' or field|field_type == 'CheckboxSelectMultiple' %}
+					<div class="{%if field.errors %}border-error{% endif %}">{{ field|as_crispy_field }}</div>
+					{% for error in field.errors %}
+						<p id="error_1_{{ field.id_for_label }}" class="field-error"><strong>{{ error }}</strong></p>
+					{% endfor %}
+				{% else %}
+					{{ field|as_crispy_field }}
+				{% endif %}
+		    </div>
+		  </div>
+		 </div>
+				
+		{% endfor %}
+		<div class="btn-group mt-4 col-sm-4 offset-sm-4" role="group" aria-label="Toolbar buttons">
+			<div class="col-sm-3"></div>
+			<button class="btn btn-primary col-sm-6" type="submit">
+				<i class="fas fa-file-export"></i>
+				<span class="d-none d-xl-block">Εξαγωγή δεδομένων</span>
+			</button>
+			<div class="col-sm-3"></div>
+
+    	</div>
+<!-- 		<div class="export-btn-div col-sm-4 offset-sm-4"> -->
+<!-- 			<button class="btn btn-primary" type="submit"> -->
+<!-- 				<i class="fas fa-file-export"></i> Εξαγωγή δεδομένων -->
+<!-- 			</button> -->
+<!-- 		</div> -->
+		
+		
+	</form>
+{% endblock %}
