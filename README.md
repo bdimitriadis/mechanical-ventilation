@@ -29,7 +29,7 @@ _pip install -r requirements.txt_
 
 ## Deployment
 
-* Adjust settings in the settings.py file found in hmv directory.
+* Rename sample-settings.py file found in hmv directory to settings.py and adjust it in accordance with your setup.
 * Just run _python manage.py runserver_ on your local machine **for development and testing purposes**.
 * To deploy the project **on a live system**, follow the instructions given by the official documentation of Django: https://docs.djangoproject.com/en/4.0/howto/deployment/
 
