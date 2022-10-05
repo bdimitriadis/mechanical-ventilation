@@ -14,7 +14,7 @@ What tools and packages you need to install on your system:
 ```
 * Python 3.x.x
 * Django via pip
-* django-crispy-forms
+* django-crispy-forms via pip
 * mysqlclient via pip
 * numpy via pip
 * pandas via pip
